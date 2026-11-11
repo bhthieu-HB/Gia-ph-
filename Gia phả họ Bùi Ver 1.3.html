@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gia phả họ Bùi</title>
+<style>
+:root{box-sizing:border-box;--bg:#fbf6e6;--fg:#2b2118;--card:#fff;--ac:#b3261e;--mu:#7a6a58;--bd:#e3d6b8;--hi:#fde9c8;color-scheme:light;padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1712;--fg:#f1e8d8;--card:#2a231b;--ac:#ff8a80;--mu:#b7a68f;--bd:#443a2c;--hi:#3a2f20;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1c1712;--fg:#f1e8d8;--card:#2a231b;--ac:#ff8a80;--mu:#b7a68f;--bd:#443a2c;--hi:#3a2f20;color-scheme:dark}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--fg);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;flex-direction:column}
+header{padding:10px 14px;background:var(--ac);color:#fff;font-weight:700;font-size:17px;text-align:center}
+main{flex:1;overflow:auto;position:relative}
+nav{display:flex;background:var(--card);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;padding:12px 4px;border:0;background:none;color:var(--mu);font:inherit;font-size:13px;font-weight:600}
+nav button.on{color:var(--ac);box-shadow:inset 0 3px var(--ac)}
+.pane{display:none;padding:10px 12px}.pane.on{display:block}
+#pDia.on{padding:0;display:flex;flex-direction:column;position:absolute;inset:0}
+#dwrap{flex:1;min-height:0;overflow:auto;touch-action:pan-x pan-y}
+.zb{display:flex;gap:8px;padding:6px 10px;align-items:center;font-size:12px;color:var(--mu)}
+.zb button{width:34px;height:30px;border:1px solid var(--bd);background:var(--card);color:var(--fg);border-radius:8px;font-size:18px}
+details{margin-left:14px;border-left:1px dashed var(--bd);padding-left:8px}
+summary{padding:5px 0;cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";color:var(--ac)}details[open]>summary::before{content:"▾ "}
+.leaf{margin-left:14px;padding:5px 0 5px 8px;border-left:1px dashed var(--bd)}
+.leaf::before{content:"• ";color:var(--mu)}
+.nm{font-weight:600}.sub{color:var(--mu);font-size:12.5px}
+.g{display:inline-block;font-size:11px;background:var(--hi);border-radius:9px;padding:0 7px;margin-left:4px;color:var(--mu)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:12px}
+label{font-size:13px;color:var(--mu);display:block;margin:8px 0 3px}
+input{width:100%;padding:11px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--fg);font:inherit;font-size:16px}
+.sg{max-height:220px;overflow:auto}.sg div{padding:10px;border:1px solid var(--bd);border-top:0;background:var(--card);font-size:14px}
+@supports(height:100dvh){body{height:100dvh}}
+.row{display:flex;gap:8px;margin-top:12px}
+.btn{flex:1;padding:11px;border:0;border-radius:10px;background:var(--ac);color:#fff;font:inherit;font-weight:700}
+.btn.s{background:var(--hi);color:var(--fg);border:1px solid var(--bd)}
+.res b{color:var(--ac)}.res p{margin:6px 0}
+.path{font-size:13px;color:var(--mu);margin:2px 0}
+#sheet{position:fixed;left:0;right:0;bottom:0;max-height:70%;overflow:auto;background:var(--card);border-top:2px solid var(--ac);border-radius:16px 16px 0 0;padding:14px 16px calc(16px + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 24px rgba(0,0,0,.25);display:none;z-index:9}
+#sheet a{color:var(--ac);font-weight:600;text-decoration:underline;cursor:pointer}
+#sheet h3{margin:0 0 4px}
+svg text{font:11px system-ui,sans-serif;fill:var(--fg);pointer-events:none}
+svg rect{fill:var(--card);stroke:var(--bd);cursor:pointer}svg rect.f{fill:var(--hi)}
+svg path{fill:none;stroke:var(--ac);stroke-opacity:.6}
+</style></head>
+<body>
+<header>GIA PHẢ HỌ BÙI</header>
+<main>
+<section class="pane on" id="pTree"></section>
+<section class="pane" id="pDia"><div class="zb"><button id="zo">−</button><button id="zi">+</button>Hai ngón để zoom, kéo để di chuyển, chạm tên để xem chi tiết</div><div id="dwrap"></div></section>
+<section class="pane" id="pRel">
+<div class="card"><b>Tra cứu quan hệ</b>
+<label>Người thứ nhất (gõ tên rồi chọn trong gợi ý)</label><input id="ia" placeholder="Ví dụ: Bùi Huy Thảo" autocomplete="off" autocapitalize="off" autocorrect="off"><div class="sg" id="sia"></div>
+<label>Người thứ hai</label><input id="ib" placeholder="Ví dụ: Bùi Huy Hiền" autocomplete="off" autocapitalize="off" autocorrect="off"><div class="sg" id="sib"></div>
+<div class="row"><button class="btn" id="go">Xem quan hệ</button><button class="btn s" id="sw">Đổi chỗ</button></div></div>
+
+<div id="out" class="card res" style="display:none"></div>
+</section>
+</main>
+<nav><button data-t="pTree" class="on">Cây thư mục</button><button data-t="pDia">Sơ đồ</button><button data-t="pRel">Quan hệ</button></nav>
+<div id="sheet"></div>
+<script>
+const DATA=`-Bùi Huy Hiển|Nguyễn Thị Tiện|Cụ tổ · Giỗ 17-3
+--Cụ Bùi Huy … (chưa rõ tên)
+---Bùi Huy Tập|Nguyễn Thị Thế (giỗ 16-11)|Giỗ 12-9
+----Bùi Thị Huyền
+----Bùi Huy Tụ|Chu Thị Cỏn|Giỗ 25-2
+-----Bùi Huy Khảo|Chu Thị Bé
+------Bùi Thị Gái
+------Bùi Huy Thiện||Liệt sỹ
+------Bùi Huy Vang||Liệt sỹ
+------Bùi Thị Lừng
+------Bùi Thị Bạn
+------Bùi Huy Thảo|Trần Thị Dung
+-----Bùi Thị Viết
+-----Bùi Thị Bốn
+-----Bùi Thị Năm
+-----Bùi Thị Sáu
+-----Bùi Thị Bảy
+----Bùi Huy Truyền|Nguyễn Thị Út
+-----Bùi Huy Bỉnh|Nguyễn Thị Lựu
+------Bùi Thị Thuận
+------Bùi Thị Tuyết
+------Bùi Huy Hiền|Nguyễn Thị Chắt
+-----Bùi Huy Luyến|Nguyễn Thị Bé
+----Bùi Thị Giánh
+----Bùi Huy Chẩn
+---Bùi Huy … (chưa rõ tên)
+----Bùi Huy Mạch|Chu Thị Đan
+-----Bùi Huy Vịnh|Nguyễn Thị Đông
+------Bùi Thị Hướng
+------Bùi Huy Ngọc|Đào Thị Loan
+------Bùi Thị Bích
+-----Bùi Huy Vinh|Chu Thị Ré
+------Bùi Thị Linh
+------Bùi Thị Luyến
+------Bùi Thị Tuyết
+------Bùi Huy Dự|Đào Thị Cúc
+-----Bùi Thị Lợi
+-----Bùi Thị Đông
+--Cụ Bùi Huy … (giỗ 19-5)||Giỗ 19-5
+---Bùi Huy Công||Giỗ 22-01
+----Bùi Thị Giảng
+----Bùi Thị Dưỡng
+----Bùi Thị Ất
+----Bùi Huy Ích|Ngô Thị Bìa
+----Bùi Huy Hoạt|Chu Thị Dứa (giỗ 07-9); Nguyễn Thị Mưu (giỗ 24-4)|Giỗ 09-9
+-----Bùi Thị Tý
+-----Bùi Thị Gái
+-----Bùi Thị Cúc
+-----Bùi Thị Lan
+-----Bùi Huy Đại|Chu Thị Xuân
+------Bùi Huy Thi|Dương Thị Luyện
+------Bùi Huy Thanh
+------Bùi Huy Thiệu|Nguyễn Thị Nhung
+------Bùi Huy Vĩ|Đoàn Thị Kiều
+-----Bùi Huy Đạt|Phạm Thị Cậy
+------Bùi Thị Sen
+------Bùi Huy Hiền|Phạm Thị Thu Hiền
+------Bùi Thị Giang
+-----Bùi Huy Trinh|Chu Thị Gái
+------Bùi Huy Chiến|Chu Thị Hà
+------Bùi Thị Xuyến
+------Bùi Huy Tuyến|Chu Thị Vân
+------Bùi Huy Tiến|Chu Thị Lâm
+---Bùi Huy Cử|Nguyễn Thị Thanh|Giỗ 15-11
+----Bùi Thị Phương
+----Bùi Huy Nhỡ|Nguyễn Thị Viên (giỗ 02-02)|Giỗ 14-10
+-----Bùi Huy Đoan|Nguyễn Thị Nuôi
+------Bùi Thị Nghiêm
+------Bùi Thị Chính
+------Bùi Huy Thắng|Dương Thị Lý
+------Bùi Huy Bộ|Đỗ Thị Hồng
+------Bùi Thị Dung
+------Bùi Huy Toàn|Trần Thị Nhung
+------Bùi Thị Ngà
+------Bùi Huy Sửu|Đỗ Thị Oanh
+----Bùi Thị Tiến
+---Bùi Huy Thường|Họ Chu Bá (giỗ 21-11)|Giỗ 06-6
+----Bùi Huy Chiêu|Nguyễn Thị Sang (giỗ 26-02)|Giỗ 26-7
+-----Bùi Huy Chiếu|Chu Thị Tý
+------Bùi Huy Sáng|Đỗ Thị Lợi
+------Bùi Thị Mai
+------Bùi Huy Chúc|Đỗ Thị Thơm
+------Bùi Thị Lan
+------Bùi Thị Phượng
+------Bùi Huy Thông|Vũ Thị Thanh
+-----Bùi Huy Bính|Nguyễn Thị Chư; Chu Thị Ngắn
+------Bùi Huy Thịnh|Nguyễn Thị Liễu
+------Bùi Thị Chính
+------Bùi Thị Đĩnh
+------Bùi Thị Vịnh
+------Bùi Huy Điệp|Đoàn Thị Toàn
+-----Bùi Thị Thìn
+-----Bùi Thị Hợi
+----Bùi Huy Hà|Trần Thị Nhúp (giỗ 19-5)|Giỗ 27-11
+-----Bùi Huy Hải|Đào Thị Son
+------Bùi Thị Bắc
+------Bùi Thị Hưng
+------Bùi Thị Phượng
+------Bùi Huy Huấn|Nguyễn Thị Tám
+------Bùi Thị Hường
+------Bùi Huy Luyện|Nguyễn Thị Huyền
+-----Bùi Thị Lan
+-----Bùi Thị Nhiêu
+-----Bùi Huy Dần|Lương Thị Thường
+------Bùi Huy Dân|Đoàn Thị Liễu
+------Bùi Thị Tiến
+------Bùi Huy Tiền|Đào Thị Mai
+------Bùi Huy Minh|Thị Hiên
+------Bùi Huy Bình
+---Bùi Huy Trung||Giỗ 02-3
+----Bùi Thị Phúc`;
+const $=s=>document.querySelector(s);
+const all=[],st=[];let root,uid=0;
+DATA.split("\n").forEach(l=>{const m=l.match(/^(-+)(.*)$/),d=m[1].length,p=m[2].split("|");
+const n={id:"n"+uid++,name:p[0],sp:(p[1]||"").split(";").map(s=>s.trim()).filter(Boolean),note:p[2]||"",d,kids:[],f:/^Bùi Thị/.test(p[0])};
+st.length=d-1;n.parent=st[d-2]||null;if(n.parent){n.idx=n.parent.kids.length;n.parent.kids.push(n)}else{n.idx=0;root=n}
+st[d-1]=n;all.push(n)});
+const by={};all.forEach(n=>by[n.id]=n);
+const sh=n=>n.name.replace(/^Bùi /,"").replace(/ \(.*\)/,"");
+const ents=[];all.forEach(n=>{ents.push(n);n.sp.forEach((s,i)=>ents.push({id:n.id+"s"+i,name:s.replace(/ \(.*\)/,""),full:s,sOf:n,d:n.d}))});
+const seen={};ents.forEach(e=>{let b=e.sOf?`${e.name} (vợ ông ${sh(e.sOf)}, đời ${e.d})`:`${e.name} — đời ${e.d}`+(e.parent?`, con ông ${sh(e.parent)}`:"");
+while(seen[b])b+=" ·";seen[b]=1;e.label=b});
+const lab={};ents.forEach(e=>lab[e.label]=e);
+const E={};ents.forEach(e=>E[e.id]=e);
+const strip=s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"d").toLowerCase().replace(/\s+/g," ").trim();
+ents.forEach(e=>e.k=strip(e.label));
+function sug(i){const q=strip($("#"+i).value),bx=$("#s"+i);if(!q){bx.innerHTML="";return}bx.innerHTML=ents.filter(e=>e.k.includes(q)).slice(0,8).map(e=>`<div data-i="${e.id}">${e.label}</div>`).join("")}
+function pick(i){const el=$("#"+i),id=el.dataset.id;if(id&&E[id]&&E[id].label==el.value)return E[id];const q=strip(el.value);if(!q)return null;const m=ents.filter(e=>e.k.includes(q));return m.length==1?m[0]:(ents.find(e=>e.k==q)||null)}
+["ia","ib"].forEach(i=>{const el=$("#"+i),bx=$("#s"+i);el.addEventListener("input",()=>sug(i));bx.addEventListener("click",ev=>{const d=ev.target.closest("[data-i]");if(!d)return;const e=E[d.dataset.i];el.value=e.label;el.dataset.id=e.id;bx.innerHTML=""})});
+// Tree
+function li(n){const sp=n.sp.length?`<div class="sub">${n.f?"Chồng":"Vợ"}: ${n.sp.join("; ")}</div>`:"";
+const nt=n.note?`<span class="g">${n.note}</span>`:"";
+const head=`<span class="nm" onclick="show('${n.id}',event)">${n.name}</span><span class="g">Đời ${n.d}</span>${nt}${sp}`;
+if(!n.kids.length)return`<div class="leaf">${head}</div>`;
+return`<details${n.d<=2?" open":""} id="t${n.id}"><summary>${head.replace('<div','<span style="display:block" ').replace("</div>","</span>")}<span class="g">${n.kids.length} con</span></summary>${n.kids.map(li).join("")}</details>`}
+$("#pTree").innerHTML=`<div class="sub" style="margin-bottom:6px">Chạm tên để xem chi tiết · chạm mũi tên để mở/thu nhánh · ${all.length} thành viên (đời 1–6)</div>`+li(root);
+// Diagram
+const W=150,H=26;let leaf=0,maxY=0;
+function lay(n){n.x=(n.d-1)*W+8;if(!n.kids.length)n.y=leaf++*H+10;else{n.kids.forEach(lay);n.y=(n.kids[0].y+n.kids[n.kids.length-1].y)/2}maxY=Math.max(maxY,n.y)}
+lay(root);let z=1;const SW=6*W+20,SH=maxY+40;
+function draw(){let p="",r="";all.forEach(n=>{n.kids.forEach(k=>{const x1=n.x+130,x2=k.x,mx=(x1+x2)/2;p+=`<path d="M${x1},${n.y+10}C${mx},${n.y+10} ${mx},${k.y+10} ${x2},${k.y+10}"/>`});
+r+=`<g onclick="show('${n.id}')"><rect class="${n.f?"f":""}" x="${n.x}" y="${n.y-2}" width="130" height="24" rx="6"/><text x="${n.x+6}" y="${n.y+14}">${sh(n).slice(0,22)}</text></g>`});
+$("#dwrap").innerHTML=`<svg width="${SW*z}" height="${SH*z}" viewBox="0 0 ${SW} ${SH}">${p}${r}</svg>`}
+draw();
+function setZ(nz,cx,cy){nz=Math.max(.4,Math.min(2.5,nz));const w=$("#dwrap"),s=w.querySelector("svg"),r=nz/z,px=w.scrollLeft+cx,py=w.scrollTop+cy;z=nz;s.setAttribute("width",SW*z);s.setAttribute("height",SH*z);w.scrollLeft=px*r-cx;w.scrollTop=py*r-cy}
+const dw=$("#dwrap");let d0=0,z0=1;
+const dist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY);
+$("#zi").onclick=()=>setZ(z+.25,dw.clientWidth/2,dw.clientHeight/2);$("#zo").onclick=()=>setZ(z-.25,dw.clientWidth/2,dw.clientHeight/2);
+dw.addEventListener("touchstart",e=>{if(e.touches.length==2){d0=dist(e.touches);z0=z}},{passive:true});
+dw.addEventListener("touchmove",e=>{if(e.touches.length==2&&d0){e.preventDefault();const rc=dw.getBoundingClientRect();setZ(z0*dist(e.touches)/d0,(e.touches[0].clientX+e.touches[1].clientX)/2-rc.left,(e.touches[0].clientY+e.touches[1].clientY)/2-rc.top)}},{passive:false});
+dw.addEventListener("touchend",()=>{d0=0});
+dw.addEventListener("gesturestart",e=>e.preventDefault());
+// Tabs
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("nav button,.pane").forEach(e=>e.classList.remove("on"));b.classList.add("on");$("#"+b.dataset.t).classList.add("on");$("#sheet").style.display="none"});
+// Sheet
+function path(n){const a=[];for(;n;n=n.parent)a.unshift(n);return a}
+window.show=(id,ev)=>{if(ev)ev.preventDefault();const n=by[id],s=$("#sheet");
+const link=x=>`<a onclick="show('${x.id}')">${sh(x)}</a>`;
+const sib=n.parent?n.parent.kids.filter(k=>k!==n):[];
+s.innerHTML=`<div style="float:right" onclick="this.parentNode.style.display='none'">✕</div><h3>${n.name}</h3>
+<div class="sub">Đời ${n.d}${n.note?" · "+n.note:""}</div>
+${n.sp.length?`<p><b>${n.f?"Chồng":"Vợ"}:</b> ${n.sp.join("; ")}</p>`:""}
+${n.parent?`<p><b>Cha:</b> ${link(n.parent)}</p>`:""}
+${sib.length?`<p><b>Anh chị em:</b> ${sib.map(link).join(", ")}</p>`:""}
+${n.kids.length?`<p><b>Con (${n.kids.length}):</b> ${n.kids.map(link).join(", ")}</p>`:""}
+<div class="row"><button class="btn" onclick="setP('ia','${id}')">Chọn làm người 1</button><button class="btn s" onclick="setP('ib','${id}')">Chọn làm người 2</button></div>`;
+s.style.display="block"};
+window.setP=(i,id)=>{$("#"+i).value=by[id].label;$("#"+i).dataset.id=id;$("#s"+i).innerHTML="";$("#sheet").style.display="none";$("nav button[data-t=pRel]").click()};
+// Relationship
+const anc=['','cha','ông nội','cụ','kỵ','cố'];
+function term(da,db,ba,bb,f){ // người b là gì của a
+if(!da&&!db)return"cùng một người";
+if(!da){if(db==1)return f?"con gái":"con trai";return["","","cháu nội","chắt","chút","chít"][db]||`hậu duệ đời thứ ${db}`}
+if(!db)return anc[da]||`tổ tiên trên ${da} đời`;
+if(da==db){const o=bb<ba;const t=o?(f?"chị":"anh"):(f?"em gái":"em trai");return da==1?t+" ruột":`${t} họ (cùng ${anc[da]||"tổ"})`}
+if(db<da){const k=da-db,base=f?"cô":(bb<ba?"bác":"chú");let pf=["","","ông","cụ","kỵ"][Math.min(k,4)];if(f&&pf=="ông")pf="bà";return(pf?pf+" ":"")+base+(db>1?" họ":"")}
+const k=db-da;return["","cháu","chắt","chút","chít"][Math.min(k,4)]+(da>1?" họ":(k==1?" ruột":""))}
+function rel(a,b){const pa=path(a),pb=path(b);let i=0;while(i<pa.length&&i<pb.length&&pa[i]===pb[i])i++;const l=i-1;
+const da=pa.length-1-l,db=pb.length-1-l,ba=pa[l+1]?pa[l+1].idx:0,bb=pb[l+1]?pb[l+1].idx:0;
+return{l,lca:pa[l],da,db,ab:term(da,db,ba,bb,b.f),ba:term(db,da,bb,ba,a.f),pa,pb}}
+function go(){const A=pick("ia"),B=pick("ib"),o=$("#out");o.style.display="block";
+if(!A||!B){o.innerHTML="Hãy chọn đủ hai người từ danh sách gợi ý khi gõ tên.";return}
+const a=A.sOf||A,b=B.sOf||B;let h="";
+if(A.sOf)h+=`<div class="path"><b>${A.name}</b> là ${A.sOf.f?"chồng":"vợ"} của <b>${A.sOf.name}</b>.</div>`;
+if(B.sOf)h+=`<div class="path"><b>${B.name}</b> là ${B.sOf.f?"chồng":"vợ"} của <b>${B.sOf.name}</b>.</div>`;
+if(A===B||(a===b&&A.sOf&&B.sOf)){o.innerHTML=h+"<p>Đây là cùng một người hoặc hai người là vợ chồng.</p>";return}
+if(a===b){o.innerHTML=h+`<p><b>${A.name}</b> và <b>${B.name}</b> là vợ chồng.</p>`;return}
+const r=rel(a,b),ag=A.sOf?"(qua chồng) ":"";
+const x=A.sOf?`${a.name}`:A.name,y=B.sOf?`${b.name}`:B.name;
+h+=`<p><b>${B.name}</b> là <b>${r.ab}</b> của <b>${A.name}</b>${A.sOf||B.sOf?" (tính theo người trong dòng họ: "+x+" ↔ "+y+")":""}.</p>`;
+h+=`<p><b>${A.name}</b> là <b>${r.ba}</b> của <b>${B.name}</b>.</p>`;
+h+=`<div class="path">Tổ chung gần nhất: <b>${r.lca.name}</b> (đời ${r.lca.d}). ${a.name} cách ${r.da} đời, ${b.name} cách ${r.db} đời.</div>`;
+h+=`<div class="path">Đường nối: ${r.pa.slice(r.l).reverse().map(sh).join(" → ")} ${r.db?"→ "+r.pb.slice(r.l+1).map(sh).join(" → "):""}</div>`;
+h+=`<div class="path">Lưu ý: anh/em, bác/chú được tính theo thứ tự ghi trong gia phả (người ghi trước là anh/chị).</div>`;
+o.innerHTML=h}
+$("#go").onclick=go;$("#sw").onclick=()=>{const a=$("#ia"),b=$("#ib"),v=a.value,d=a.dataset.id||"";a.value=b.value;b.value=v;a.dataset.id=b.dataset.id||"";b.dataset.id=d;go()};
+</script></body></html>
